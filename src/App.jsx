@@ -6,7 +6,7 @@ function App() {
 
   let myRef = useRef(0);
   useEffect(() => {
-    document.addEventListener('deviceorientation', function() {
+    window.addEventListener('deviceorientation', function() {
       myRef.current = myRef.current + 1;
     });
   }, [])
