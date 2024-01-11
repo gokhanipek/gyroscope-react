@@ -1,19 +1,20 @@
+import { useEffect, useRef } from 'react';
 import './App.css'
-import Tilt from "react-parallax-tilt";
 
 
 function App() {
+
+  let myRef = useRef(0);
+  useEffect(() => {
+    document.addEventListener('deviceorientation', function() {
+      myRef.current = myRef.current + 1;
+    });
+  }, [])
   return (
-    <Tilt glareEnable={true}
-      tiltMaxAngleX={10}
-      tiltMaxAngleY={10}
-      perspective={1000}
-      gyroscope={true}
-      glareColor={"rgb(255,0,0)"}>
-      <div className='tiltComponent'>
-        Move biatch
-      </div>
-    </Tilt>
+    <div className='tiltComponent' ref={myRef}>
+      Move biatch - {myRef.current}
+    </div>
+
 
   )
 }
