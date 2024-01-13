@@ -2,39 +2,47 @@ import { useEffect, useRef } from 'react';
 import './App.css'
 
 function App() {
-  const tiltableRef = useRef();
-  useEffect(() => {
-    let counter = 0;
-    const updateRate = 10;
-    const limit = 45;
+  let tiltRef = useRef();
 
-    function updateNow() {
-      return counter++ % updateRate === 0;
-    }
+  function handleOrientation(event) {
+    let alpha = event.alpha
+    let beta = event.beta
+    let gamma = event.gamma
+    console.warn('ye yoooo')
+    tiltRef.current.style.transform = 'rotateX(' + beta/100 + 'deg) rotateY(' + gamma/100 + 'deg) rotateZ(' + alpha/100 + 'deg)';
+    console.warn(alpha, beta, gamma)
 
-    window.addEventListener("deviceorientation", function (event) {
-      if (updateNow()) {
-        let position = Math.round(event.gamma);
-        if (Math.abs(position) > limit) {
-          if (position > limit) {
-            position = limit;
-          } else {
-            position = -limit;
-          }
+  }
+
+
+  async function requestDeviceOrientation() {
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      //iOS 13+ devices
+      try {
+        const permissionState = await DeviceOrientationEvent.requestPermission()
+        if (permissionState === 'granted') {
+          window.addEventListener('deviceorientation', handleOrientation)
+        } else {
+          alert('Permission was denied')
         }
-        position = position / -100;
-        let style = "rotateY(" + position + "deg)";
-        tiltableRef.current.style.transform = style;
+      } catch (error) {
+        alert(error)
       }
-    });
-
-
-  }, [])
+    } else if ('DeviceOrientationEvent' in window) {
+      //non iOS 13+ devices
+      console.log("not iOS");
+      window.addEventListener('deviceorientation', handleOrientation)
+    } else {
+      //not supported
+      alert('nicht unterstützt')
+    }
+  } 
 
 
   return (
     <div className="wrapper">
-      <img ref={tiltableRef} id="tiltable" src="https://images.pexels.com/photos/19709063/pexels-photo-19709063/free-photo-of-fabrika-tomurcuk-botanik-ayrilmak.jpeg" />
+      <div className='tilt' ref={tiltRef}>my element</div>
+      <button onClick={requestDeviceOrientation}>Enable</button>
     </div>
 
   )

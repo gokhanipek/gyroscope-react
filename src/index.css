@@ -11,8 +11,10 @@ body {
   perspective: 15px;
 }
 
-#tiltable {
+.tilt {
+  width: 100px;
   height:400px;
+  background: white;
   transition: transform 0.5s;
   backface-visibility: hidden;
 }
