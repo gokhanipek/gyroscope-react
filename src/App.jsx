@@ -10,7 +10,7 @@ function App() {
   
   return (
     <div className='tiltComponent'>
-      Move biatch - <pre>{JSON.stringify(gyroscope)}</pre> - <pre>{JSON.stringify(orientation)}</pre>
+      Move biatch - <pre>{JSON.stringify(gyroscope, null, 2)}</pre> - <pre>{JSON.stringify(orientation, null, 2)}</pre>
     </div>
 
 
