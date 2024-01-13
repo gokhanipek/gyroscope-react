@@ -1,18 +1,16 @@
-import { useEffect, useRef } from 'react';
 import './App.css'
+import { AbsoluteOrientationSensor, Gyroscope } from 'motion-sensors-polyfill/src/motion-sensors';
 
 
 function App() {
 
-  let myRef = useRef(0);
-  useEffect(() => {
-    window.addEventListener('deviceorientation', function() {
-      myRef.current = myRef.current + 1;
-    });
-  }, [])
+  let gyroscope = new Gyroscope({ frequency: 15 });
+  let orientation = new AbsoluteOrientationSensor({ frequency: 60 });
+
+  
   return (
-    <div className='tiltComponent' ref={myRef}>
-      Move biatch - {myRef.current}
+    <div className='tiltComponent'>
+      Move biatch - <pre>{JSON.stringify(gyroscope)}</pre> - <pre>{JSON.stringify(orientation)}</pre>
     </div>
 
 
