@@ -1,16 +1,24 @@
+import { useEffect, useRef } from 'react';
 import './App.css'
 import { AbsoluteOrientationSensor, Gyroscope } from 'motion-sensors-polyfill/src/motion-sensors';
 
-
 function App() {
 
-  let gyroscope = new Gyroscope({ frequency: 15 });
-  let orientation = new AbsoluteOrientationSensor({ frequency: 60 });
+  let gyroRef = useRef();
+  let orientationRef = useRef();
 
-  
+  useEffect(() => {
+    let gyroscope = new Gyroscope({ frequency: 15 });
+    let orientation = new AbsoluteOrientationSensor({ frequency: 60 });
+    gyroRef.current = gyroscope;
+    orientationRef.current = orientation;
+  }, []);
+
+
   return (
     <div className='tiltComponent'>
-      Move biatch - <pre>{JSON.stringify(gyroscope, null, 2)}</pre> - <pre>{JSON.stringify(orientation, null, 2)}</pre>
+      <div ref={gyroRef}>{gyroRef.current}</div>
+      <div ref={orientationRef}>{orientationRef.current}</div>
     </div>
 
 
