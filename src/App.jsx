@@ -1,26 +1,41 @@
 import { useEffect, useRef } from 'react';
 import './App.css'
-import { AbsoluteOrientationSensor, Gyroscope } from 'motion-sensors-polyfill/src/motion-sensors';
 
 function App() {
-
-  let gyroRef = useRef();
-  let orientationRef = useRef();
-
+  const tiltableRef = useRef();
   useEffect(() => {
-    let gyroscope = new Gyroscope({ frequency: 15 });
-    let orientation = new AbsoluteOrientationSensor({ frequency: 60 });
-    gyroRef.current = gyroscope;
-    orientationRef.current = orientation;
-  }, []);
+    let counter = 0;
+    const updateRate = 10;
+    const limit = 45;
+
+    function updateNow() {
+      return counter++ % updateRate === 0;
+    }
+
+    window.addEventListener("deviceorientation", function (event) {
+      if (updateNow()) {
+        let position = Math.round(event.gamma);
+        if (Math.abs(position) > limit) {
+          if (position > limit) {
+            position = limit;
+          } else {
+            position = -limit;
+          }
+        }
+        position = position / -100;
+        let style = "rotateY(" + position + "deg)";
+        tiltableRef.current.style.transform = style;
+      }
+    });
+
+
+  }, [])
 
 
   return (
-    <div className='tiltComponent'>
-      <div ref={gyroRef}>{gyroRef.current}</div>
-      <div ref={orientationRef}>{orientationRef.current}</div>
+    <div className="wrapper">
+      <img ref={tiltableRef} id="tiltable" src="https://images.pexels.com/photos/19709063/pexels-photo-19709063/free-photo-of-fabrika-tomurcuk-botanik-ayrilmak.jpeg" />
     </div>
-
 
   )
 }
