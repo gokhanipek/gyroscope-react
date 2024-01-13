@@ -1,13 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gyroscope Animation</title>
+  <style>
+    #animatedElement {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+      position: absolute;
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div id="animatedElement"></div>
+
+  <script>
+    const animatedElement = document.getElementById('animatedElement');
+
+    window.addEventListener('deviceorientation', handleOrientation);
+
+    function handleOrientation(event) {
+      const { beta, gamma } = event;
+
+      // Adjust the rotation values as needed for your animation
+      const rotateX = beta ? beta + 'deg' : '0';
+      const rotateY = gamma ? gamma + 'deg' : '0';
+
+      const transformValue = `rotateX(${rotateX}) rotateY(${rotateY})`;
+
+      animatedElement.style.transform = transformValue;
+    }
+  </script>
+</body>
 </html>
