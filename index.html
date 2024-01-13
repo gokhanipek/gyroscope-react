@@ -1,38 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gyroscope Animation</title>
   <style>
-    #animatedElement {
+    html {
+      height: 100%;
+      width: 100%;
+
+    }
+
+    .cube {
+      position: relative;
       width: 100px;
       height: 100px;
-      background-color: blue;
+      transform-style: preserve-3d;
+      transform: rotateX(45deg) rotateY(45deg) translate(-50%, -50%);
+
+      margin-left: 50vw;
+      margin-top: 50vh;
+    }
+
+    .face {
       position: absolute;
-      transition: transform 0.3s ease-in-out;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+      border: 1px solid #999;
+    }
+
+    .front {
+      transform: translateZ(50px);
+    }
+
+    .back {
+      transform: rotateY(180deg) translateZ(50px);
+    }
+
+    .top {
+      transform: rotateX(-90deg) translateZ(50px);
+    }
+
+    .bottom {
+      transform: rotateX(90deg) translateZ(50px);
+    }
+
+    .left {
+      transform: rotateY(-90deg) translateZ(50px);
+    }
+
+    .right {
+      transform: rotateY(90deg) translateZ(50px);
     }
   </style>
 </head>
+
 <body>
-  <div id="animatedElement"></div>
+  <button onclick="requestDeviceOrientation()">Premission</button>
 
+  <div class="cube">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+    <div class="face left"></div>
+    <div class="face right"></div>
+  </div>
   <script>
-    const animatedElement = document.getElementById('animatedElement');
-
-    window.addEventListener('deviceorientation', handleOrientation);
 
     function handleOrientation(event) {
-      const { beta, gamma } = event;
+      let alpha = event.alpha
+      let beta = event.beta
+      let gamma = event.gamma
+      console.warn('ye yoooo')
+      let cube = document.querySelector('.cube');
+      cube.style.transform = 'rotateX(' + beta + 'deg) rotateY(' + gamma + 'deg) rotateZ(' + alpha + 'deg)';
 
-      // Adjust the rotation values as needed for your animation
-      const rotateX = beta ? beta + 'deg' : '0';
-      const rotateY = gamma ? gamma + 'deg' : '0';
-
-      const transformValue = `rotateX(${rotateX}) rotateY(${rotateY})`;
-
-      animatedElement.style.transform = transformValue;
     }
-  </script>
+
+
+    async function requestDeviceOrientation() {
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        //iOS 13+ devices
+        try {
+          const permissionState = await DeviceOrientationEvent.requestPermission()
+          if (permissionState === 'granted') {
+            window.addEventListener('deviceorientation', handleOrientation)
+          } else {
+            alert('Permission was denied')
+          }
+        } catch (error) {
+          alert(error)
+        }
+      } else if ('DeviceOrientationEvent' in window) {
+        //non iOS 13+ devices
+        console.log("not iOS");
+        window.addEventListener('deviceorientation', handleOrientation)
+      } else {
+        //not supported
+        alert('nicht unterstützt')
+      }
+    }  </script>
 </body>
+
 </html>
