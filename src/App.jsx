@@ -46,7 +46,8 @@ function App() {
 
   return (
     <div className="wrapper">
-      <p ref={tiltRef} className="text-clip" onClick={requestDeviceOrientation}>Click Me!</p>
+      <p ref={tiltRef} className="text-clip">Cool Gyro Scope</p>
+      <button onClick={requestDeviceOrientation}>Click me</button>
     </div>
 
   )

@@ -31,3 +31,10 @@ body {
   text-transform: uppercase;
   font-family: 'Roboto', sans-serif;
 }
+
+button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+}
