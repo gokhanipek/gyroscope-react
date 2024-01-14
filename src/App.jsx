@@ -1,48 +1,52 @@
-import { useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import './App.css'
 
 function App() {
   let tiltRef = useRef();
 
-  function handleOrientation(event) {
-    let alpha = event.alpha
-    let beta = event.beta
-    let gamma = event.gamma
-    console.warn('ye yoooo')
-    tiltRef.current.style.transform = 'rotateX(' + beta/100 + 'deg) rotateY(' + gamma/100 + 'deg) rotateZ(' + alpha/100 + 'deg)';
-    console.warn(alpha, beta, gamma)
+  // const [alphaState, setAlpha] = useState();
+  // const [betaState, setBeta] = useState(0);
+  // const [gammaState, setGamma] = useState();
 
+  function handleOrientation(event) {
+    const { alpha, beta, gamma } = event;
+    // const betaCorrected = beta - 90;
+    // setAlpha(alpha);
+    if (gamma < 90 && gamma > -90) {
+      // setGamma(gamma);
+      tiltRef.current.style.backgroundPositionY = gamma + 'px';
+    }
+
+    if (alpha < 90 && alpha > -90) {
+      // setAlpha(alpha);
+      tiltRef.current.style.backgroundPositionX = alpha + 'px';
+    }
   }
 
 
   async function requestDeviceOrientation() {
     if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-      //iOS 13+ devices
       try {
         const permissionState = await DeviceOrientationEvent.requestPermission()
         if (permissionState === 'granted') {
           window.addEventListener('deviceorientation', handleOrientation)
         } else {
-          alert('Permission was denied')
+          console.error('Access is not granted');
         }
       } catch (error) {
-        alert(error)
+        console.error(error);
       }
     } else if ('DeviceOrientationEvent' in window) {
-      //non iOS 13+ devices
-      console.log("not iOS");
       window.addEventListener('deviceorientation', handleOrientation)
     } else {
-      //not supported
-      alert('nicht unterstützt')
+      console.error('Device does not support gyroscope');
     }
-  } 
+  }
 
 
   return (
     <div className="wrapper">
-      <div className='tilt' ref={tiltRef}>my element</div>
-      <button onClick={requestDeviceOrientation}>Enable</button>
+      <p ref={tiltRef} className="text-clip" onClick={requestDeviceOrientation}>I&apos;m cool Gyroscope. Click on me to enable Gyroscope</p>
     </div>
 
   )
