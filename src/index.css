@@ -17,10 +17,11 @@ body {
   width: 350px;
   margin: 0 auto;
   height: 100vh;
-  background: url('https://images.pexels.com/photos/3369184/pexels-photo-3369184.jpeg');
+  background: url('https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg');
+  background-position: center;
   background-size: cover;
-  transition: 0.4s;
-  font-size: 110px;
+  transition: 0.2s;
+  font-size: 140px;
   font-weight: 600;
   display: flex;
   justify-content: center;
