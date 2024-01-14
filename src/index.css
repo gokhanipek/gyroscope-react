@@ -1,18 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
 }
 
+body {
+}
+
 .wrapper {
-  background-color: black;
+  background-image: url('https://images.pexels.com/photos/3780132/pexels-photo-3780132.jpeg');
+  background-size: cover;
 }
 
 .text-clip {
-  width: 100%;
+  width: 350px;
+  margin: 0 auto;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(61,174,235,1) 0%, rgba(253,45,79,1) 100%);
+  background: url('https://images.pexels.com/photos/3369184/pexels-photo-3369184.jpeg');
+  background-size: cover;
   transition: 0.4s;
-  font-size: 52px;
+  font-size: 110px;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -21,5 +29,5 @@
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   text-transform: uppercase;
-
+  font-family: 'Roboto', sans-serif;
 }
