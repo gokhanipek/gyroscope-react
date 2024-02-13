@@ -5,12 +5,10 @@
   padding: 0;
 }
 
-body {
-}
-
 .wrapper {
   background-image: url('https://images.pexels.com/photos/3780132/pexels-photo-3780132.jpeg');
   background-size: cover;
+  background-position: center;
 }
 
 .text-clip {
@@ -38,4 +36,10 @@ button {
   top: 20px;
   left: 20px;
   padding: 10px;
+}
+
+.message-panel {
+  width: 375px;
+  height: 700px;
+  border: 1px solid red;
 }
