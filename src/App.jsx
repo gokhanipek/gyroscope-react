@@ -6,7 +6,6 @@ function App() {
   function handleOrientation(event) {
     const { beta, gamma } = event;
       tiltRef.current.style.backgroundPositionX = gamma + '%';
-      console.log(beta);
       tiltRef.current.style.backgroundPositionY = beta + 'px';
   }
 
