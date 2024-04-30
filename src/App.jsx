@@ -8,7 +8,7 @@ function App() {
       tiltRef.current.style.backgroundPositionY = gamma + '%';
       tiltRef.current.style.backgroundPositionX = beta + '%';
       console.log(tiltRef.current.style.filter);
-      var correctedAlpha = (alpha / 360) + 0.5;
+      var correctedAlpha = (alpha / 360) + 0.1;
       tiltRef.current.style.filter = "brightness(" + correctedAlpha +")";
   }
 
