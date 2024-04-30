@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-  background-image: url('https://images.pexels.com/photos/3780132/pexels-photo-3780132.jpeg');
+  background-image: url('./images/background.jpeg');
   background-size: cover;
   background-position: center;
 }
@@ -15,7 +15,7 @@
   width: 350px;
   margin: 0 auto;
   height: 100vh;
-  background: url('https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg');
+  background: url('./images/tree-background.jpeg');
   background-position: center;
   background-size: cover;
   transition: 0.2s;
