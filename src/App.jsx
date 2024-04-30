@@ -1,27 +1,15 @@
-import { useState, useRef } from 'react';
-import './App.css'
-import Messaging from './Messaging';
+import { useRef } from 'react';
 
 function App() {
   let tiltRef = useRef();
 
-  // const [alphaState, setAlpha] = useState();
-  // const [betaState, setBeta] = useState(0);
-  // const [gammaState, setGamma] = useState();
-
   function handleOrientation(event) {
     const { alpha, beta, gamma } = event;
-    // const betaCorrected = beta - 90;
-    // setAlpha(alpha);
-    if (gamma < 90 && gamma > -90) {
-      // setGamma(gamma);
-      tiltRef.current.style.backgroundPositionY = gamma + 'px';
-    }
-
-    if (alpha < 90 && alpha > -90) {
-      // setAlpha(alpha);
-      tiltRef.current.style.backgroundPositionX = alpha + 'px';
-    }
+      tiltRef.current.style.backgroundPositionY = gamma + '%';
+      tiltRef.current.style.backgroundPositionX = beta + '%';
+      console.log(tiltRef.current.style.filter);
+      var correctedAlpha = (alpha / 360) + 0.5;
+      tiltRef.current.style.filter = "brightness(" + correctedAlpha +")";
   }
 
 
