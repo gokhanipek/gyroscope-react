@@ -5,8 +5,8 @@ function App() {
 
   function handleOrientation(event) {
     const { alpha, beta, gamma } = event;
-      tiltRef.current.style.backgroundPositionY = gamma + '%';
-      tiltRef.current.style.backgroundPositionX = beta + '%';
+      tiltRef.current.style.backgroundPositionX = gamma + '%';
+      tiltRef.current.style.backgroundPositionY = beta + '%';
       console.log(tiltRef.current.style.filter);
       var correctedAlpha = (alpha / 360) < 0.5 ? (alpha / 360) + 0.5 : (alpha / 360);
       tiltRef.current.style.filter = "brightness(" + correctedAlpha +")";
